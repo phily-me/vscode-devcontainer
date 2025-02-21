@@ -1,7 +1,7 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/javascript-node-mongo
 {
-  "name": "Node.js & Mongo DB",
+  "name": "CHANGEME",
   "dockerComposeFile": "docker-compose.yml",
   "service": "app",
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
@@ -14,7 +14,13 @@
     // Configure properties specific to VS Code.
     "vscode": {
       // Add the IDs of extensions you want installed when the container is created.
-      "extensions": ["mongodb.mongodb-vscode"]
+      "extensions": [
+        "mongodb.mongodb-vscode",
+        "esbenp.prettier-vscode",
+        "ms-python.python",
+        "ms-python.debugpy",
+        "charliermarsh.ruff"
+      ]
     }
   },
   "features": {
@@ -22,19 +28,14 @@
       "installDirectlyFromGitHubRelease": true,
       "version": "latest"
     },
-    "ghcr.io/devcontainers/features/python:1": {
-      "installTools": true,
-      "installJupyterlab": true,
-      "version": "latest"
-    },
     "ghcr.io/mi-skam/devcontainer-features/gh-persistence:latest": {}
-  }
+  },
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
   // "forwardPorts": [3000, 27017],
 
   // Use 'postCreateCommand' to run commands after the container is created.
-  // "postCreateCommand": "yarn install",
+  "postCreateCommand": "./.devcontainer/post-container-creation.sh"
 
   // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
   // "remoteUser": "node"
