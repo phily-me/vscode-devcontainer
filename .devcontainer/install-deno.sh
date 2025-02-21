@@ -2,10 +2,10 @@
 set -euo pipefail
 
 # configuration
-org=astral-sh
-app=uv
-version=0.6.2
-archive=tar.gz
+org=denoland
+app=deno
+version="v2.2.1"
+archive=zip
 
 # Determine the operating system
 os=$(uname -s | tr '[:upper:]' '[:lower:]')

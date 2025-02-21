@@ -14,6 +14,10 @@ COPY install-uv.sh /usr/local/bin/install-uv.sh
 RUN chmod +x /usr/local/bin/install-uv.sh
 RUN /usr/local/bin/install-uv.sh
 
+COPY install-deno.sh /usr/local/bin/install-deno.sh
+RUN chmod +x /usr/local/bin/install-deno.sh
+RUN /usr/local/bin/install-deno.sh
+
 # [Optional] Uncomment this section to install additional OS packages.
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 #     && apt-get -y install --no-install-recommends <your-package-list-here>

@@ -1,4 +1,2 @@
-*
-!.devcontainer
-!.gitignore
-!LICENSE
+.venv
+venv
