@@ -18,20 +18,14 @@
       "matchStrings": ["version=(?<currentValue>[^\\s]+)"],
       "depNameTemplate": "astral-sh/uv",
       "datasourceTemplate": "github-releases"
-    },
-    {
-      "customType": "regex",
-      "fileMatch": ["\\.devcontainer/Dockerfile$"],
-      "matchStrings": ["ARG MONGO_TOOLS_VERSION=(?<currentValue>[^\\s]+)"],
-      "depNameTemplate": "mongodb/mongo-tools",
-      "datasourceTemplate": "github-releases"
     }
   ],
-  "docker": {
-    "fileMatch": ["\\.devcontainer/docker-compose\\.yml$", "\\.devcontainer/Dockerfile$"]
+  "dockerfile": {
+    "fileMatch": ["\\.devcontainer/Dockerfile$"]
+  },
+  "docker-compose": {
+    "fileMatch": ["\\.devcontainer/docker-compose\\.yml$"]
   },
   "schedule": ["on the first day of the month"],
-  "labels": ["dependencies"],
-  "assignees": [],
-  "reviewers": []
+  "labels": ["dependencies"]
 }
