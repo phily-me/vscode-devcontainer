@@ -1,58 +1,77 @@
-# VSCode devcontainer
+# VS Code DevContainer Template
 
-This repository contains a VS Code DevContainer configuration for a development environment with the following features:
+A comprehensive VS Code DevContainer template supporting modern development workflows with Node.js, Deno, Python, Nix, Just, and MongoDB.
 
-- Node.js
-- Deno
-- MongoDB (running as a service)
-- uv (Python dependency management)
+## 🚀 Quick Start
 
-## Getting Started
+1. **Clone this repository**
+   ```bash
+   git clone https://github.com/phily-me/vscode-devcontainer.git
+   cd vscode-devcontainer
+   ```
 
-1. **Clone the repository:**
-  ```sh
-  git clone <repository-url>
-  cd <repository-directory>
-  ```
+2. **Open in VS Code**
+   - Install the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+   - Open the folder in VS Code
+   - Click "Reopen in Container" when prompted
 
-2. **Open the repository in VS Code:**
-  ```sh
-  code .
-  ```
+3. **Choose your setup**:
+   - **Fast startup**: Use pre-built image (see [Usage Options](#usage-options))
+   - **Customizable**: Keep default local build
 
-3. **Reopen in Container:**
-  - Press `F1` and select `Remote-Containers: Reopen in Container`.
+## 🛠️ Included Tools
 
-## Features
+- **Node.js** - JavaScript/TypeScript runtime
+- **Deno v2.2.1** - Modern JavaScript/TypeScript runtime  
+- **Python with uv v0.6.2** - Fast Python package manager
+- **Nix** - Reproducible package management with flakes support
+- **Just** - Command runner for project automation
+- **MongoDB** - Database with mongosh and tools
+- **GitHub CLI** - Git workflow automation
 
-### Node.js
-Node.js is installed for server-side JavaScript development.
+## 📦 Usage Options
 
-### Deno
-Deno is included as a secure runtime for JavaScript and TypeScript.
+### Option 1: Pre-built Image (Recommended)
+Fastest startup using pre-built images from GitHub Container Registry.
 
-### MongoDB
-MongoDB is installed and running as a service for database management.
+1. Edit `.devcontainer/devcontainer.json`
+2. Uncomment line 7: `"image": "ghcr.io/phily-me/vscode-devcontainer:latest"`
+3. Comment out lines 10-11: `"dockerComposeFile"` and `"service"`
 
-### uv
-uv is a Python dependency management tool for managing virtual environments and dependencies.
+### Option 2: Local Build
+Build the container locally for maximum customization.
 
-## Configuration
+Keep the default configuration (no changes needed).
 
-The DevContainer is configured using the `.devcontainer` folder which includes:
+## 🏗️ Architecture
 
-- `Dockerfile`: Defines the custom image with the required tools.
-- `devcontainer.json`: Configuration file for the DevContainer.
+- **MongoDB**: Runs as a separate service via Docker Compose
+- **Multi-platform**: Supports both AMD64 and ARM64 architectures
+- **VS Code Extensions**: Automatically installs relevant extensions
+- **Shell Integration**: Properly configured for both Bash and Zsh
 
-## Usage
+## 📋 Available Images
 
-- Start coding with Node.js, Deno, and MongoDB.
-- MongoDB service is running and accessible within the container.
+Images are automatically built and published to GitHub Container Registry:
 
-## Contributing
+- `ghcr.io/phily-me/vscode-devcontainer:latest` - Latest from main branch
+- `ghcr.io/phily-me/vscode-devcontainer:v0.2` - Latest stable release
+- `ghcr.io/phily-me/vscode-devcontainer:v0.1` - Previous release
 
-Feel free to submit issues and pull requests for improvements.
+## 🔧 Customization
 
-## License
+1. **Fork this repository**
+2. **Modify the configuration**:
+   - Edit `.devcontainer/Dockerfile` for system-level changes
+   - Update `.devcontainer/devcontainer.json` for VS Code settings
+   - Add custom installation scripts following the existing pattern
+3. **Rebuild your container**
 
-This project is licensed under the MIT License.
+## 📝 License
+
+This project is open source and available under the MIT License.
+
+## 🤝 Contributing
+
+Contributions are welcome\! Please feel free to submit issues and pull requests.
+EOF < /dev/null

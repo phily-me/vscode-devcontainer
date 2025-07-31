@@ -2,8 +2,14 @@
 // README at: https://github.com/devcontainers/templates/tree/main/src/javascript-node-mongo
 {
   "name": "CHANGEME",
+  
+  // Option 1: Use pre-built image (faster startup)
+  // "image": "ghcr.io/phily-me/vscode-devcontainer:latest",
+  
+  // Option 2: Build locally (current default, more customizable)
   "dockerComposeFile": "docker-compose.yml",
   "service": "app",
+  
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
 
   // Features to add to the dev container. More info: https://containers.dev/features.
