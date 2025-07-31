@@ -1,0 +1,37 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": ["\\.devcontainer/install-deno\\.sh$"],
+      "matchStrings": ["version=\"(?<currentValue>v[^\"]+)\""],
+      "depNameTemplate": "denoland/deno",
+      "datasourceTemplate": "github-releases",
+      "extractVersionTemplate": "^v(?<version>.+)$"
+    },
+    {
+      "customType": "regex",
+      "fileMatch": ["\\.devcontainer/install-uv\\.sh$"],
+      "matchStrings": ["version=(?<currentValue>[^\\s]+)"],
+      "depNameTemplate": "astral-sh/uv",
+      "datasourceTemplate": "github-releases"
+    },
+    {
+      "customType": "regex",
+      "fileMatch": ["\\.devcontainer/Dockerfile$"],
+      "matchStrings": ["ARG MONGO_TOOLS_VERSION=(?<currentValue>[^\\s]+)"],
+      "depNameTemplate": "mongodb/mongo-tools",
+      "datasourceTemplate": "github-releases"
+    }
+  ],
+  "docker": {
+    "fileMatch": ["\\.devcontainer/docker-compose\\.yml$", "\\.devcontainer/Dockerfile$"]
+  },
+  "schedule": ["on the first day of the month"],
+  "labels": ["dependencies"],
+  "assignees": [],
+  "reviewers": []
+}
