@@ -18,9 +18,9 @@ COPY install-deno.sh /usr/local/bin/install-deno.sh
 RUN chmod +x /usr/local/bin/install-deno.sh
 RUN /usr/local/bin/install-deno.sh
 
+# Nix installation moved to post-create script for better compatibility
 COPY install-nix.sh /usr/local/bin/install-nix.sh
 RUN chmod +x /usr/local/bin/install-nix.sh
-RUN /usr/local/bin/install-nix.sh
 
 COPY install-just.sh /usr/local/bin/install-just.sh
 RUN chmod +x /usr/local/bin/install-just.sh
