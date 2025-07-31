@@ -4,7 +4,7 @@ set -euo pipefail
 # configuration
 org=astral-sh
 app=uv
-version=0.6.2
+version=0.8.4
 archive=tar.gz
 
 # Determine the operating system
