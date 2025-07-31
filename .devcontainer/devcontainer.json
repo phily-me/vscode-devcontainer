@@ -19,7 +19,9 @@
         "esbenp.prettier-vscode",
         "ms-python.python",
         "ms-python.debugpy",
-        "charliermarsh.ruff"
+        "charliermarsh.ruff",
+        "jnoortheen.nix-ide",
+        "skellock.just"
       ]
     }
   },
