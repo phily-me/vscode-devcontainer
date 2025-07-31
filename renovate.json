@@ -27,5 +27,8 @@
     "fileMatch": ["\\.devcontainer/docker-compose\\.yml$"]
   },
   "schedule": ["on the first day of the month"],
-  "labels": ["dependencies"]
+  "labels": ["dependencies"],
+  "prCreation": "immediate",
+  "prConcurrentLimit": 3,
+  "branchConcurrentLimit": 5
 }
