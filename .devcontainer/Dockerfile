@@ -1,41 +1,34 @@
-FROM mcr.microsoft.com/devcontainers/javascript-node:3-22-bookworm
+FROM ubuntu:latest
 
-# Install MongoDB command line tools - though mongo-database-tools not available on arm64
-ARG MONGO_TOOLS_VERSION=6.0
-RUN . /etc/os-release \
-    && curl -sSL "https://www.mongodb.org/static/pgp/server-${MONGO_TOOLS_VERSION}.asc" | gpg --dearmor > /usr/share/keyrings/mongodb-archive-keyring.gpg \
-    && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/mongodb-archive-keyring.gpg] http://repo.mongodb.org/apt/debian ${VERSION_CODENAME}/mongodb-org/${MONGO_TOOLS_VERSION} main" | tee /etc/apt/sources.list.d/mongodb-org-${MONGO_TOOLS_VERSION}.list \
-    && apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get install -y mongodb-mongosh \
-    && if [ "$(dpkg --print-architecture)" = "amd64" ]; then apt-get install -y mongodb-database-tools; fi \
-    && apt-get clean -y && rm -rf /var/lib/apt/lists/*
+# Install essential tools for Nix installer
+RUN apt-get update && apt-get install -y curl direnv sudo xz-utils git ca-certificates && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
-COPY install-uv.sh /usr/local/bin/install-uv.sh
-RUN chmod +x /usr/local/bin/install-uv.sh
-RUN /usr/local/bin/install-uv.sh
+# Install Nix using Determinate Systems installer with container-optimized settings
+# - Uses --init none for containers without systemd
+# - Disables sandbox for container compatibility 
+# - Enables flakes and nix-command for modern Nix features
+# - Supports multi-architecture builds (amd64, arm64)
+RUN curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install linux \
+    --extra-conf "sandbox = false" \
+    --extra-conf "experimental-features = nix-command flakes" \
+    --init none \
+    --no-confirm
 
-COPY install-deno.sh /usr/local/bin/install-deno.sh
-RUN chmod +x /usr/local/bin/install-deno.sh
-RUN /usr/local/bin/install-deno.sh
+# Add Nix to PATH for all users
+ENV PATH="${PATH}:/nix/var/nix/profiles/default/bin"
 
-# Nix installation moved to post-create script for better compatibility
-COPY install-nix.sh /usr/local/bin/install-nix.sh
-RUN chmod +x /usr/local/bin/install-nix.sh
+# Copy project files
+COPY flake.nix flake.lock* devshell.nix .envrc /workspace/
 
-COPY install-just.sh /usr/local/bin/install-just.sh
-RUN chmod +x /usr/local/bin/install-just.sh
-RUN /usr/local/bin/install-just.sh
+# Set working directory  
+WORKDIR /workspace
 
-# [Optional] Uncomment this section to install additional OS packages.
-# RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-#     && apt-get -y install --no-install-recommends <your-package-list-here>
+# Allow direnv for this directory
+RUN direnv allow
 
-# [Optional] Uncomment if you want to install an additional version of node using nvm
-# ARG EXTRA_NODE_VERSION=10
-# RUN su node -c "source /usr/local/share/nvm/nvm.sh && nvm install ${EXTRA_NODE_VERSION}"
+# Build the development environment to warm up the cache
+RUN nix develop --command echo "Development environment ready"
 
-# [Optional] Uncomment if you want to install more global node modules
-# RUN su node -c "npm install -g <your-package-list-here>"
-
-
-
+# Set the default command to bash (VS Code will manage the shell)
+CMD ["/bin/bash"]
